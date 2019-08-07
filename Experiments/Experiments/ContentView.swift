@@ -35,23 +35,47 @@ extension HeroThumbnail {
     }
 }
 
+struct HeroDetailView: View {
+    @State var hero: Hero
+    var image: UIImage?
+    @State var zoomed: Bool = false
+    var body: some View {
+        return VStack {
+            Button(action: {
+                self.zoomed.toggle()
+            }, label: { Text("Toggle") })
+            image.map {
+                Image(uiImage: $0)
+                    .resizable()
+                    .aspectRatio(contentMode: zoomed ? .fill : .fit)
+                    .animation(.default)
+                
+            }
+            Text(verbatim: hero.name)
+        }
+        .navigationBarTitle(Text(hero.name), displayMode: .inline)
+    }
+}
+
 struct HeroView: View {
     @State var hero: Hero
     @State var image: UIImage?
 
     var body: some View {
-        HStack {
-            image.map {
-                Image(uiImage: $0)
-                    .resizable()
-                .frame(width: 50, height: 50, alignment: .leading)
-            }
-            VStack(alignment: .leading) {
-                Text(hero.name)
-                Text(hero.description)
-            }
-                .onAppear {
-                    fetchThumbnail(url: self.hero.thumbnail.imageURL, binding: self.$image)
+        NavigationButton(destination: HeroDetailView(hero: hero, image: image)) {
+            HStack {
+                image.map {
+                    Image(uiImage: $0)
+                        .resizable()
+                        .frame(width: 50, height: 50, alignment: .leading)
+                }
+                VStack(alignment: .leading) {
+                    Text(hero.name)
+                    Text(hero.description)
+                    }
+                    .onAppear {
+                        fetchThumbnail(url: self.hero.thumbnail.imageURL, binding: self.$image)
+                }
             }
         }
     }
@@ -60,11 +84,14 @@ struct HeroView: View {
 struct ContentView : View {
     @State private var heroes: [Hero] = []
     var body: some View {
-        List(heroes) { hero in
-            HeroView(hero: hero)
-            }.onAppear{
-                fetchHeroes(binding: self.$heroes)
-        }
+        NavigationView {
+            List(heroes) { hero in
+                HeroView(hero: hero)
+                }.onAppear{
+                    fetchHeroes(binding: self.$heroes)
+                }
+                .navigationBarTitle(Text("Heroes"))
+            }
     }
 }
 
