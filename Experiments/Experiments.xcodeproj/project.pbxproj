@@ -15,6 +15,8 @@
 		1FC8092D22FB1EC900F1660F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FC8092B22FB1EC900F1660F /* LaunchScreen.storyboard */; };
 		1FC8093822FB1EC900F1660F /* ExperimentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC8093722FB1EC900F1660F /* ExperimentsTests.swift */; };
 		1FC8094322FB579700F1660F /* String+md5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC8094222FB579700F1660F /* String+md5.swift */; };
+		1FC8094522FB5A0200F1660F /* ContentView+fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC8094422FB5A0200F1660F /* ContentView+fetch.swift */; };
+		1FC8094722FB5DBA00F1660F /* HeroView+fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC8094622FB5DBA00F1660F /* HeroView+fetch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,8 @@
 		1FC8093722FB1EC900F1660F /* ExperimentsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentsTests.swift; sourceTree = "<group>"; };
 		1FC8093922FB1EC900F1660F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FC8094222FB579700F1660F /* String+md5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+md5.swift"; sourceTree = "<group>"; };
+		1FC8094422FB5A0200F1660F /* ContentView+fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView+fetch.swift"; sourceTree = "<group>"; };
+		1FC8094622FB5DBA00F1660F /* HeroView+fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HeroView+fetch.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,8 @@
 				1FC8092022FB1EC800F1660F /* AppDelegate.swift */,
 				1FC8092222FB1EC800F1660F /* SceneDelegate.swift */,
 				1FC8092422FB1EC800F1660F /* ContentView.swift */,
+				1FC8094422FB5A0200F1660F /* ContentView+fetch.swift */,
+				1FC8094622FB5DBA00F1660F /* HeroView+fetch.swift */,
 				1FC8094222FB579700F1660F /* String+md5.swift */,
 				1FC8092622FB1EC900F1660F /* Assets.xcassets */,
 				1FC8092B22FB1EC900F1660F /* LaunchScreen.storyboard */,
@@ -213,8 +219,10 @@
 			files = (
 				1FC8092122FB1EC800F1660F /* AppDelegate.swift in Sources */,
 				1FC8092322FB1EC800F1660F /* SceneDelegate.swift in Sources */,
+				1FC8094522FB5A0200F1660F /* ContentView+fetch.swift in Sources */,
 				1FC8092522FB1EC800F1660F /* ContentView.swift in Sources */,
 				1FC8094322FB579700F1660F /* String+md5.swift in Sources */,
+				1FC8094722FB5DBA00F1660F /* HeroView+fetch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,48 +19,52 @@ struct ResponseData: Codable {
 struct Hero: Codable, Identifiable {
     var id: Int
     var name: String
+    var description: String
+    var thumbnail: HeroThumbnail
+}
+
+struct HeroThumbnail: Codable {
+    var path: String
+    var `extension`: String
+}
+
+extension HeroThumbnail {
+    var imageURL: URL? {
+        let str = [self.path, self.extension].joined(separator: ".")
+        return URL(string: str)
+    }
+}
+
+struct HeroView: View {
+    @State var hero: Hero
+    @State var image: UIImage?
+
+    var body: some View {
+        HStack {
+            image.map {
+                Image(uiImage: $0)
+                    .resizable()
+                .frame(width: 50, height: 50, alignment: .leading)
+            }
+            VStack(alignment: .leading) {
+                Text(hero.name)
+                Text(hero.description)
+            }
+                .onAppear {
+                    fetchThumbnail(url: self.hero.thumbnail.imageURL, binding: self.$image)
+            }
+        }
+    }
 }
 
 struct ContentView : View {
-    enum Constant {
-        static let publicKey = "e21d74679066ca01db8fe17607526ede"
-        static let privateKey = "25f8d0f87c3e9aaae1870268c2fb2039ee739b13"
-    }
-
     @State private var heroes: [Hero] = []
     var body: some View {
         List(heroes) { hero in
-            Text(hero.name)
-            }
-            .onAppear {
-                self.fetch()
+            HeroView(hero: hero)
+            }.onAppear{
+                fetchHeroes(binding: self.$heroes)
         }
-    }
-
-    func fetch() {
-        var urlComponents = URLComponents(string: "https://gateway.marvel.com/v1/public/characters")!
-        let timeStr = String(Date().timeIntervalSince1970)
-        urlComponents.queryItems = [
-            URLQueryItem(name: "apikey", value: Constant.publicKey),
-            URLQueryItem(name: "ts", value: timeStr),
-            URLQueryItem(name: "hash", value: (timeStr + Constant.privateKey + Constant.publicKey).md5)
-        ]
-        let request = URLRequest(url: urlComponents.url!)
-        URLSession.shared.dataTask(with: request) { (maybeData, maybeResponse, maybeError) in
-            guard let data = maybeData else {
-                return
-            }
-            do {
-                let heroesResponse = try JSONDecoder().decode(HeroesResponse.self, from: data)
-                DispatchQueue.main.async {
-                    self.heroes = heroesResponse.data.results
-                }
-            } catch {
-                let responseStr = String(data: data, encoding: .utf8)
-                print(responseStr as Optional)
-            }
-            }
-            .resume()
     }
 }
 
